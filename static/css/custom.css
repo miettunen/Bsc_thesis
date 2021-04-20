@@ -1,0 +1,133 @@
+/* Custom elements adding to skeleton.css */
+
+
+/* Customization for disabled buttons */
+.button:disabled,
+button:disabled,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+opacity: 0.5;
+pointer-events: none;
+}
+
+
+/* Coloring for listen- and stop-buttons */
+.button,
+#listenButton
+{
+  background-color: #ccffcc;
+}
+.button,
+#stopButton
+{
+  background-color: #ffcccc;
+}
+
+
+/* Styling file input and label to make upload button appear similar to other buttons */
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+
+[type="file"] + label {
+  /* File upload button styles */
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #cce0ff;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+
+
+
+/*
+[type="file"]:focus + label {
+  /* File upload focus state button styles */
+
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+  /* File upload hover state button styles */
+  color: #333;
+  border-color: #888;
+  outline: 0;
+}
+
+[type="file"]:disabled + label,
+[type="file"] + label:disabled {
+pointer-events: none;
+opacity: 0.5;
+}
+
+
+/* Scroll box for showing audio captioning results */
+ul.special{
+  height:400px;
+  width:100%;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+
+/* 
+
+/* Styling for nav bar */
+.container {
+    margin-top: 10px;
+    }   
+    #nav {
+    margin: 13px 13px 13px 13px;
+    }   
+    #nav ul li {
+    display: inline;
+    margin: 0 20px 0 0;
+    margin-bottom: 130px;
+    }   
+    #nav a {
+    text-decoration: none;
+    }   
+    #nav a:hover {
+    text-decoration: underline;
+     }
+
+/* Stying the svg chart container */
+.svg-container {
+    display: inline;
+    position: relative;
+    width: 100%;
+    padding-bottom: 0%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+display: inline-block;
+position: absolute;
+top: 10px;
+left: 0;
+}
+
+/* removing margins from line under navbar 
+hr.navLine{
+margin-top: 0px;
+margin-bottom: 0px;
+}
+      
