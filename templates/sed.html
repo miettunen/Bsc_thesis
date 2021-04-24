@@ -15,19 +15,27 @@
             </ul>
             <hr class="navLine">
          </div>
-         <h3> Sound Event Detection </h3>
          <div class="row">
-            <div class="u-pull-left six columns">
+            <div class="u-pull-left ten columns">
+               <h3> Sound Event Detection </h3>    
+            </div>
+            <div class="u-pull-right two columns">
+            </div>
+
+         </div>
+         <div class="row">
+            <div class="four columns">
                <div id="controls">
                   <button id="listenButton">Listen</button>
                   <button id="stopButton" disabled>Stop</button>
                </div>
             </div>
-            <div class="u-pull-left six columns">
-               <input type="file" class="u-pull-right" accept="audio/*" id="uploadButton">
+            <div class="eight columns">
+               <input type="file" accept="audio/wav" id="uploadButton">
                <label for="uploadButton">Upload</label>
             </div>
          </div>
+         <div class="alertMessageBox" id="alertMessageBox"></div>
       </div>
       <div class="container u-full-width" id="graphContainer">
          <div id="my_dataviz" class="svg-container"></div>

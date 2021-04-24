@@ -65,10 +65,8 @@ def handle_captioning(file, model):
       pred = get_prediction(model, arr, sr_orig)
       preds.append(pred)
   
-  # Send the lenght of subarray as last element of predicted captions
-  preds.append(subarray_length)
-  
-  return preds
+  data = {"captions": preds, "frame_length": subarray_length}
+  return data
 
 def get_prediction(model, y, sr):
   params_feature_extraction= {'sr': 44100,
@@ -87,7 +85,6 @@ def get_prediction(model, y, sr):
   params_feature_extraction['sr'] = sr
 
   features = feature_extraction(audio_data=y, **params_feature_extraction)
-
   row = Tensor([features]).float()
   yhat = model(row, None)
 
