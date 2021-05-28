@@ -2,53 +2,56 @@
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
-      <title>SED</title>
+      <title>Sound Event Detection</title>
+
+      <link rel="stylesheet" href="../static/css/normalize.css">
+      <link rel="stylesheet" href="../static/css/skeleton.css">
+      <link rel="stylesheet" href="../static/css/custom.css">     
    </head>
    <body>
-      <div class="container" id="actionContainer">
-         <div id="nav" class="u-full-width">
-            <ul>
-               <li><a href="/">Introduction</a></li>
-               <li><a href="sed">SED</a></li>
-               <li><a href="audio_captioning">Audio Captioning</a></li>
-               <li><a href="contacts">Contacts</a></li>
-            </ul>
-            <hr class="navLine">
-         </div>
-         <div class="row">
-            <div class="u-pull-left ten columns">
-               <h3> Sound Event Detection </h3>    
+      <div id=mainWrapper>
+         <div class="container" id="actionContainer">
+            <div id="nav" class="u-full-width">
+               <ul>
+                  <li><a href="/">Introduction</a></li>
+                  <li><a href="sed">Sound Event Detection</a></li>
+                  <li><a href="audio_captioning">Audio Captioning</a></li>
+                  <li><a href="contacts">Contacts</a></li>
+                  <li><img class="navBarLogo" src="{{url_for('static', filename='images/tau_logo.png')}}"/></li>
+                  <li><img class="navBarLogo" src="{{url_for('static', filename='images/arg_logo.png')}}"/></li>
+               </ul>
+               <hr class="navLine">
             </div>
-            <div class="u-pull-right two columns">
-            </div>
-
-         </div>
-         <div class="row">
-            <div class="four columns">
-               <div id="controls">
-                  <button id="listenButton">Listen</button>
-                  <button id="stopButton" disabled>Stop</button>
-               </div>
-            </div>
-            <div class="eight columns">
+            <h3> Sound Event Detection </h3>
+            <div id="controls">
+               <button id="listenButton">Listen</button>
+               <button id="stopButton" disabled>Stop</button>
                <input type="file" accept="audio/wav" id="uploadButton">
                <label for="uploadButton">Upload</label>
             </div>
+            <div class="alertMessageBox" id="alertMessageBox">
+            </div>
          </div>
-         <div class="alertMessageBox" id="alertMessageBox"></div>
+         <div class="container" id="contentContainer">
+            <div id="my_dataviz" class="svg-container"></div>
+         </div>
+         <div class="container" id="footerContainer">
+            <hr class="navLine">
+            <footer class="footer">
+               <div class=footerLogoContainer>
+                  <img class="footerLogo" src="{{url_for('static', filename='images/marvel_logo.png')}}"/>
+               </div>
+               <div id="footerText">
+                  The supervisory work for the thesis leading to this web page and for this web page was
+                  supported by the European Union’s Horizon2020 research and innovation programme under
+                  grant agreement No 957337, project MARVEL
+               </div>
+            </footer>
+         </div>
       </div>
-      <div class="container u-full-width" id="graphContainer">
-         <div id="my_dataviz" class="svg-container"></div>
-      </div>
-         
-      
-
+      <script src="{{ url_for('static', filename='js/d3.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/sed.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
    </body>
-   
-<link rel="stylesheet" href="../static/css/normalize.css">
-<link rel="stylesheet" href="../static/css/skeleton.css">
-<link rel="stylesheet" href="../static/css/custom.css">
 
-<script src="{{ url_for('static', filename='js/d3.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/sed.js') }}"></script>
-<script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+  

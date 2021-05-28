@@ -211,10 +211,11 @@ window.onresize = function(event) {
 function resizeCaptionBox(){
     let captionBox = document.querySelector("#caption_box");
 	let actionBox = document.querySelector("#actionContainer");
+	let footer = document.querySelector("#footerContainer")
 
 	let padding = 80;
 
-	let height = window.innerHeight - actionBox.offsetHeight - padding;
+	let height = window.innerHeight - actionBox.offsetHeight - footer.offsetHeight - padding; 
 
 	// Limit the height/width ratio to 1
 	if (height > window.innerWidth){

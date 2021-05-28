@@ -26,7 +26,9 @@ def allowed_file(filename):
 wt10 = get_wt10()
 yamnet_m, yamnet_c = get_yamnet(patch_hop_seconds=1)
 
-
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
 
 @app.route('/caption', methods=['POST'])
 def caption():  

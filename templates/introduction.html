@@ -3,33 +3,65 @@
    <head>
       <meta charset="utf-8">
       <title>Introduction</title>
+
+      <link rel="stylesheet" href="../static/css/normalize.css">
+      <link rel="stylesheet" href="../static/css/skeleton.css">
+      <link rel="stylesheet" href="../static/css/custom.css">  
    </head>
    <body> 
-    <div class="container" id="actionContainer">
-        <div id="nav" class="u-full-width">
-           <ul>
-              <li><a href="/">Introduction</a></li>
-              <li><a href="sed">SED</a></li>
-              <li><a href="audio_captioning">Audio Captioning</a></li>
-              <li><a href="contacts">Contacts</a></li>
-           </ul>
-           <hr class="navLine">
-        </div>
-        <h3> Introduction </h3>
-     </div>
-    <div class="container"
-        <h2>Introduction</h2>
-        Lorem ipsum dolor sit amet, cibo choro doctus mel an.
-        Eu veniam repudiare eam, id labitur aliquid consulatu duo.
-        Est wisi audiam accommodare ad. Iracundia voluptaria honestatis pri ea.
-        Error possim definitionem nec ad. Laoreet atomorum ne cum.
-    </div>
+      <div id="mainWrapper">
+         <div class="container" id="actionContainer">
+            <div id="nav" class="u-full-width">
+               <ul>
+                  <li><a href="/">Introduction</a></li>
+                  <li><a href="sed">Sound Event Detection</a></li>
+                  <li><a href="audio_captioning">Audio Captioning</a></li>
+                  <li><a href="contacts">Contacts</a></li>
+                  <li><img class="navBarLogo" src="{{url_for('static', filename='images/tau_logo.png')}}"/></li>
+                  <li><img class="navBarLogo" src="{{url_for('static', filename='images/arg_logo.png')}}"/></li>
+               </ul>
+               <hr class="navLine">
+            </div>
+            <h3> Introduction </h3>
+         </div>
+         <div id=contentContainer>
+            <div class="container">
+               <p>
+                  Welcome to the webpage of my BSc thesis. The code for this project can be found from
+                  <a href="https://github.com/miettunen/Bsc_thesis">https://github.com/miettunen/Bsc_thesis</a>. This page offers sound
+                  event detection and audio captioning for uploaded files and sound recorded with your microphone. To upload a file to
+                  either model press the "Upload"-button and select a file to upload. Note that the file must be in .wav format and
+                  maximum file size is 15 MiB. To use your microphone for real time sound event detection or audio captioning, press
+                  the "Listen"-button to start recording and "Stop"-button to stop recording.
+               </p>
+               <p>
+                  Sound event detection uses pre-trained <a href="https://github.com/tensorflow/models/tree/master/research/audioset/yamnet">Yamnet</a>
+                  model. Yamnet predicts 521 different classes for audio events. A heatmap is used for showing the results. For uploaded file the
+                  model uses hop lenght of 1 second and yamnet default frame lenght of 0.96 seconds. Last 0.04 seconds are not used for
+                  predicting the sound events in the frame. In the listen funtion 1 second of audio is recorded and then top 4 predicted audio
+                  classes are added to the heatmap. If a class hasn't been in top 4 predictions for five seconds, it is removed from the
+                  heatmap.
+               </p>
+               <p>For audio captioning the app uses pre-trained <a href=https://github.com/haantran96/wavetransformer>Wavetransformer10</a>
+                  model. The Wavetransformer10 predicts captions for audio files with length of 15-30 seconds. The uploaded file is split to
+                  to parts that are between this length and then a caption is predicted for each part. The listen option records for 15 seconds
+                  and then predicts caption for the recorded audio.
+               </p>      
+            </div>
+         </div>
+         <div class="container" id="footerContainer">
+            <hr class="navLine">
+            <footer class="footer">
+               <div class=footerLogoContainer>
+                  <img class="footerLogo" src="{{url_for('static', filename='images/marvel_logo.png')}}"/>
+               </div>
+               <div id="footerText">
+                  The supervisory work for the thesis leading to this web page and for this web page was
+                  supported by the European Union’s Horizon2020 research and innovation programme under
+                  grant agreement No 957337, project MARVEL
+               </div>
+            </footer>
+         </div>
+      </div>
    </body>
-<link rel="stylesheet" href="../static/css/normalize.css">
-<link rel="stylesheet" href="../static/css/skeleton.css">
-<link rel="stylesheet" href="../static/css/custom.css">
-<script src="https://d3js.org/d3.v4.js"></script>
-<script src="{{ url_for('static', filename='js/test.js') }}"></script>
-<!-- <script src="{{ url_for('static', filename='js/d3.min.js') }}"></script> -->
-<script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
 </html>

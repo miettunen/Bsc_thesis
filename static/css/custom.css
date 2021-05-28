@@ -1,7 +1,7 @@
 /* Custom elements adding to skeleton.css */
 
 
-/* Customization for disabled buttons */
+/* Styling for disabled buttons */
 .button:disabled,
 button:disabled,
 input[type="submit"],
@@ -11,8 +11,11 @@ opacity: 0.5;
 pointer-events: none;
 }
 
+.button{
+  
+}
 
-/* Coloring for listen- and stop-buttons */
+/* Styling listen- and stop-buttons */
 .button,
 #listenButton
 {
@@ -24,7 +27,11 @@ pointer-events: none;
 {
   background-color: #ffcccc;
   width: 115px;
+  margin-right: 115px  /* Spacing between stop- and upload-buttons */
 }
+
+
+
 
 
 /* Styling file input and label to make upload button appear similar to other buttons */
@@ -90,7 +97,11 @@ ul.special{
   width:100%;
   overflow:hidden;
   overflow-y:scroll;
+  box-shadow: 2px 2px 2px 2px #888888;
+  padding: 10px;
 }
+
+
 
 /* 
 
@@ -113,26 +124,17 @@ ul.special{
     text-decoration: underline;
      }
 
-/* Stying the svg chart container */
-.svg-container {
-    display: inline;
-    position: relative;
+/* Styling the svg chart container */
+#my_dataviz {
     width: 100%;
-    padding-bottom: 0%; /* aspect ratio */
-    vertical-align: top;
-    overflow: hidden;
-}
-.svg-content-responsive {
-display: inline-block;
-position: absolute;
-top: 10px;
-left: 0;
+    height: 100%;
 }
 
-/* removing margins from line under navbar */
+
+/* changing margins from line under navbar */
 hr.navLine{
-margin-top: 0px;
-margin-bottom: 0px;
+margin-top: 10px;
+margin-bottom: 10px;
 }
 
 
@@ -217,7 +219,7 @@ margin-bottom: 0px;
 }
 
 .dropdown-content hr{
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -243,4 +245,44 @@ margin-bottom: 0px;
 
 span.timeStamp {
   color: red;
+} 
+
+.navBarLogo {
+  height: 40px;
+  width: Auto;
+  object-fit: contain;
+  float: right;
+  padding-left: 20px;
+}
+
+.footerLogo {
+  height: 40px;
+  width: Auto;
+  object-fit: contain;
+  padding-right: 20px;
+  float: left;
+}
+
+
+#footerText {
+  opacity: 1;
+  font-size: 10px;
+  padding: 0px 10px 20px 10px;
+}
+
+#mainWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: auto;
+}
+
+#contentContainer {
+  flex: 1;
+}
+
+body, html {
+  height:  100%;
+  margin:  0px auto;
+  padding: 0px auto;
 }

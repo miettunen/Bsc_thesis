@@ -1,6 +1,5 @@
 /*
 d3 graph based on "https://www.d3-graph-gallery.com/graph/heatmap_basic.html"
-Svg graph responsiveness based on "http://bl.ocks.org/enactdev/a647e60b209e67602304"
 Recording based on "https://blog.addpipe.com/using-recorder-js-to-capture-wav-audio-in-your-html5-web-site/"
 */
 
@@ -41,11 +40,9 @@ var default_height = 350;
 var default_ratio = default_width / default_height;
 
 // Margin and calculated width and height of graph
-var margin = {top: 30, right: 30, bottom: 80, left: 200},
+var margin = {top: 30, right: 30, bottom: 50, left: 150},
     width = default_width - margin.left - margin.right,
     height = default_height - margin.top - margin.bottom;
-
-set_graph_size();
 
 var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
@@ -56,29 +53,7 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
 // Calculates and sets graph size based on current window size
-function set_graph_size() {
-
-	current_width = document.querySelector("#actionContainer").offsetWidth;
-	current_height = window.innerHeight - document.querySelector("#actionContainer").offsetHeight;
-  	current_ratio = current_width / current_height;
-  
-	// Check if height is limiting factor
-	if ( current_ratio > default_ratio ){
-	  h = current_height;
-	  w = h * default_ratio;
-	// Else width is limiting
-	} else {
-	  w = current_width;
-	  h = w / default_ratio;
-	}
-  
-	// Set new width and height based on graph dimensions
-	width = w - margin.left - margin.right;
-	height = h - margin.top - margin.bottom;
-	document.querySelector("#my_dataviz")
-  
-  };
-  
+ 
 
 async function uploadFile(event){
 	const file = event.target.files[0];
@@ -249,17 +224,19 @@ function draw_graph(){
 
 	// set the dimensions and margins of the graph
 
-	var container = d3.select("#my_dataviz");
+	var container = d3.select("#contentContainer");
 	container.selectAll("*").remove();
 
 	// append the svg object to the body of the page
-	var svg = d3.select("#my_dataviz")
+	var svg = d3.select("#contentContainer")
 	.append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
+	.call(responsivefy)
 	.append("g")
 	.attr("transform",
-			"translate(" + margin.left + "," + margin.top + ")");
+			"translate(" + margin.left + "," + margin.top + ")")
+	
 
 
 	
@@ -271,7 +248,6 @@ function draw_graph(){
 	.attr("transform", "translate(0," + height + ")")
 	.call(d3.axisBottom(x))
 	var x_bandwith = x(2*hop_length)-x(hop_length)
-	console.log(x_bandwith)
 
 	// Create axis labels
 	svg.append("text")
@@ -281,7 +257,7 @@ function draw_graph(){
     .attr("y", height+35)
     .text("Time (seconds)");
 
-	svg.append("text")
+	svg.append("text")	
     .attr("class", "y_label")
     .attr("text-anchor", "end")
     .attr("x", -10)
@@ -319,27 +295,13 @@ function draw_graph(){
 		.attr("x", function(d) { return x(d.group)+padding})
 		.attr("y", function(d) { return y(d.variable)+padding })
 		.attr("width", x_bandwith-2*padding)
-		.attr("height", y.bandwidth() )
+		.attr("height", y.bandwidth()-2*padding)
 		.style("fill", function(d) { return myColor(d.value)} )
 
 }
 
 
 
-// Use a timer so the chart is not constantly redrawn while window is being resized.
-var resizeTimer;
-window.onresize = function(event) {
- clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(function()
-  {
-    var s = d3.selectAll('svg');
-    s = s.remove();
-    set_graph_size();
-	if(is_drawn){
-		draw_graph();
-	}
-  }, 100);
-}
 
 function heatmap_to_d3(classes, data){
 	frame_labels = Array.from(Array(data[0].length).keys())
@@ -434,3 +396,58 @@ function clear_alert_message(){
 	let messageBox = document.querySelector("#alertMessageBox");
 	messageBox.innerHTML = "";
 }
+
+function responsivefy(svg) {
+	// container will be the DOM element
+	// that the svg is appended to
+	// we then measure the container
+	// and find its aspect ratio
+	const container = d3.select(svg.node().parentNode),
+		width = parseInt(svg.style('width'), 10),
+		height = parseInt(svg.style('height'), 10),
+		aspect = width / height;
+   
+	// set viewBox attribute to the initial size
+	// control scaling with preserveAspectRatio
+	// resize svg on inital page load
+	svg.attr('viewBox', `0 0 ${width} ${height}`)
+		.attr('preserveAspectRatio', 'xMidYMid')
+		.call(resize);
+   
+	// add a listener so the chart will be resized
+	// when the window resizes
+	// multiple listeners for the same event type
+	// requires a namespace, i.e., 'click.foo'
+	// api docs: https://goo.gl/F3ZCFr
+	d3.select(window).on(
+		'resize.' + container.attr('id'), 
+		resize
+	);
+   
+	// this is the code that resizes the chart
+	// it will be called on load
+	// and in response to window resizes
+	// gets the width of the container
+	// and resizes the svg to fill it
+	// while maintaining a consistent aspect ratio
+	function resize() {
+		const windowHeight = window.innerHeight;
+		const actionContainerHeight = document.querySelector("#actionContainer").offsetHeight;
+		const footerHeight = document.querySelector("#footerContainer").offsetHeight;
+		const availableHeight = windowHeight-actionContainerHeight-footerHeight-40;
+
+		const w = parseInt(container.style('width'));
+		const h = availableHeight;
+		const ratio = w/h;
+		if (ratio < aspect){
+			svg.attr('width', w);
+			svg.attr('height', Math.round(w / aspect));
+		}
+		else{
+			svg.attr('height', h);
+			svg.attr('width', Math.round(h * aspect));
+			document.querySelector("#contentContainer").setAttribute("style", "height:"+ h)
+		}
+
+	}
+  }
