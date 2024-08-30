@@ -5,7 +5,7 @@ cffi==1.14.0
 contextvars==2.4
 cycler==0.10.0
 decorator==4.4.2
-flask==1.1.2
+flask==2.2.2
 imageio==2.9.0
 immutables==0.14
 joblib==0.16.0
